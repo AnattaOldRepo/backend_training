@@ -15,6 +15,8 @@
         add_menu_page('Header & Footer Site Scripts', 'Site Scripts', 'manage_options', 'ideapro-admin-menu', 'add_script_pages', '', 200);
     }
 
+    add_action('admin_menu', 'custom_admin_menu_option');
+
     function add_script_pages(){
         if( array_key_exists('update_scripts', $_POST) ){
             update_option('idea_pro_header_script', $_POST['header_script']);
@@ -40,5 +42,17 @@
         </div>
         <?php
     }
-    add_action('admin_menu', 'custom_admin_menu_option');
+
+    function display_header_script(){
+        $header_script = get_option('idea_pro_header_script', none);
+        print $header_script;
+    }
+
+    add_action('wp_head', 'display_header_script');
+
+    function display_footer_script(){
+        $footer_script = get_option('idea_pro_footer_script', none);
+        print $footer_script;
+    }
+    add_action('wp_footer', 'display_footer_script');
 ?>
