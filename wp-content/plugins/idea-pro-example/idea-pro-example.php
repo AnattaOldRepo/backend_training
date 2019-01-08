@@ -25,8 +25,8 @@
             <div id="setting-error-settings-updated" class="updated_settings_error notice is-dismissible"> <strong>Setting have been saved</strong></div>
             <?php
         }
-        $header_script = get_option('idea_pro_header_script', none);
-        $footer_script = get_option('idea_pro_footer_script', none);
+        $header_script = get_option('idea_pro_header_script', null);
+        $footer_script = get_option('idea_pro_footer_script', null);
         ?>
 
         <div class="warp">
@@ -44,14 +44,14 @@
     }
 
     function display_header_script(){
-        $header_script = get_option('idea_pro_header_script', none);
+        $header_script = get_option('idea_pro_header_script', null);
         print $header_script;
     }
 
     add_action('wp_head', 'display_header_script');
 
     function display_footer_script(){
-        $footer_script = get_option('idea_pro_footer_script', none);
+        $footer_script = get_option('idea_pro_footer_script', null);
         print $footer_script;
     }
     add_action('wp_footer', 'display_footer_script');
