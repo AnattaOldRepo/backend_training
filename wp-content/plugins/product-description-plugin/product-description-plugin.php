@@ -1,36 +1,33 @@
 <?php
 /**
- * Plugin name: Anatta Product Description Plugin
- * Description: This Plugin can be used for Product Description
- * Author: Laxmi Barepete
- *
+ * Plugin Name: Product Description
+ * Description: custom plugin dev
+ * Author: Laxmi Barpete
  */
 
-class ProductDescriptionPlugin{
+defined('ABSPATH') or die('Sorry you can not access this file directly');
 
-    function __construct() {
-        add_action('init', array( $this, 'custom_post_type'));
-    }
+if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
+}
 
-    function activate(){
-        $this->custom_post_type();
-        flush_rewrite_rules();
-    }
 
-    function deactivate(){
-        flush_rewrite_rules();
-    }
-
-    function custom_post_type(){
-        register_post_type('product_description', ['public'=> true, 'label'=> 'Product DescriptionS'] );
-    }
+function product_description_activate()
+{
+    Inc\Base\Activate::activate();
 
 }
 
-if( class_exists( 'ProductDescriptionPlugin' ) ){
-    $productDescriptionPlugin = new ProductDescriptionPlugin();
+register_activation_hook(__FILE__, 'product_description_activate');
+
+function product_description_deactivate()
+{
+    Inc\Base\Deactivate::deactivate();
 }
 
-register_activation_hook(__FILE__, array( $productDescriptionPlugin, 'activate' ) );
-register_deactivation_hook( __FILE__, array( $productDescriptionPlugin, 'deactivate' ) );
-?>
+register_deactivation_hook(__FILE__, 'product_description_deactivate');
+
+if (class_exists('Inc\\Init')) {
+    Inc\Init::register_services();
+}
+
